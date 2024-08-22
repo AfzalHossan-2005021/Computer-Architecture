@@ -1,0 +1,340 @@
+
+Control.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         00000146  00000000  00000000  00000054  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         00000000  00800060  00800060  0000019a  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .comment      00000030  00000000  00000000  0000019a  2**0
+                  CONTENTS, READONLY
+  3 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  000001cc  2**2
+                  CONTENTS, READONLY
+  4 .debug_aranges 00000028  00000000  00000000  00000208  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_info   0000058d  00000000  00000000  00000230  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_abbrev 0000051a  00000000  00000000  000007bd  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_line   00000367  00000000  00000000  00000cd7  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_frame  00000034  00000000  00000000  00001040  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_str    000002e9  00000000  00000000  00001074  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_ranges 00000018  00000000  00000000  0000135d  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 3a 00 	jmp	0x74	; 0x74 <__ctors_end>
+   4:	0c 94 44 00 	jmp	0x88	; 0x88 <__bad_interrupt>
+   8:	0c 94 44 00 	jmp	0x88	; 0x88 <__bad_interrupt>
+   c:	0c 94 44 00 	jmp	0x88	; 0x88 <__bad_interrupt>
+  10:	0c 94 44 00 	jmp	0x88	; 0x88 <__bad_interrupt>
+  14:	0c 94 44 00 	jmp	0x88	; 0x88 <__bad_interrupt>
+  18:	0c 94 44 00 	jmp	0x88	; 0x88 <__bad_interrupt>
+  1c:	0c 94 44 00 	jmp	0x88	; 0x88 <__bad_interrupt>
+  20:	0c 94 44 00 	jmp	0x88	; 0x88 <__bad_interrupt>
+  24:	0c 94 44 00 	jmp	0x88	; 0x88 <__bad_interrupt>
+  28:	0c 94 44 00 	jmp	0x88	; 0x88 <__bad_interrupt>
+  2c:	0c 94 44 00 	jmp	0x88	; 0x88 <__bad_interrupt>
+  30:	0c 94 44 00 	jmp	0x88	; 0x88 <__bad_interrupt>
+  34:	0c 94 44 00 	jmp	0x88	; 0x88 <__bad_interrupt>
+  38:	0c 94 44 00 	jmp	0x88	; 0x88 <__bad_interrupt>
+  3c:	0c 94 44 00 	jmp	0x88	; 0x88 <__bad_interrupt>
+  40:	0c 94 44 00 	jmp	0x88	; 0x88 <__bad_interrupt>
+  44:	0c 94 44 00 	jmp	0x88	; 0x88 <__bad_interrupt>
+  48:	0c 94 44 00 	jmp	0x88	; 0x88 <__bad_interrupt>
+  4c:	0c 94 44 00 	jmp	0x88	; 0x88 <__bad_interrupt>
+  50:	0c 94 44 00 	jmp	0x88	; 0x88 <__bad_interrupt>
+  54:	6b 00       	.word	0x006b	; ????
+  56:	6e 00       	.word	0x006e	; ????
+  58:	71 00       	.word	0x0071	; ????
+  5a:	74 00       	.word	0x0074	; ????
+  5c:	77 00       	.word	0x0077	; ????
+  5e:	7a 00       	.word	0x007a	; ????
+  60:	7d 00       	.word	0x007d	; ????
+  62:	80 00       	.word	0x0080	; ????
+  64:	83 00       	.word	0x0083	; ????
+  66:	86 00       	.word	0x0086	; ????
+  68:	89 00       	.word	0x0089	; ????
+  6a:	8c 00       	.word	0x008c	; ????
+  6c:	8f 00       	.word	0x008f	; ????
+  6e:	92 00       	.word	0x0092	; ????
+  70:	95 00       	.word	0x0095	; ????
+  72:	98 00       	.word	0x0098	; ????
+
+00000074 <__ctors_end>:
+  74:	11 24       	eor	r1, r1
+  76:	1f be       	out	0x3f, r1	; 63
+  78:	cf e5       	ldi	r28, 0x5F	; 95
+  7a:	d8 e0       	ldi	r29, 0x08	; 8
+  7c:	de bf       	out	0x3e, r29	; 62
+  7e:	cd bf       	out	0x3d, r28	; 61
+  80:	0e 94 53 00 	call	0xa6	; 0xa6 <main>
+  84:	0c 94 a1 00 	jmp	0x142	; 0x142 <_exit>
+
+00000088 <__bad_interrupt>:
+  88:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+0000008c <initialize>:
+#define NOR	0b00000110
+#define SUB	0b00000111
+
+void initialize()
+{
+	MCUCSR |= (1 << JTD);
+  8c:	84 b7       	in	r24, 0x34	; 52
+  8e:	80 68       	ori	r24, 0x80	; 128
+  90:	84 bf       	out	0x34, r24	; 52
+	MCUCSR |= (1 << JTD);
+  92:	84 b7       	in	r24, 0x34	; 52
+  94:	80 68       	ori	r24, 0x80	; 128
+  96:	84 bf       	out	0x34, r24	; 52
+	
+	DDRA=0XFF; // jump:7	bneq:6	beq:5	ALUSrc:4	RegDst:3	RegWrite:2	MenWrite:1	MemToReg:0
+  98:	8f ef       	ldi	r24, 0xFF	; 255
+  9a:	8a bb       	out	0x1a, r24	; 26
+	DDRB=0X00; // Input opcode: 3-0
+  9c:	17 ba       	out	0x17, r1	; 23
+	DDRC=0XFF; // ALU OpCode 2-0
+  9e:	84 bb       	out	0x14, r24	; 20
+	
+	PORTA = 0x00;
+  a0:	1b ba       	out	0x1b, r1	; 27
+	PORTC = 0x00;
+  a2:	15 ba       	out	0x15, r1	; 21
+  a4:	08 95       	ret
+
+000000a6 <main>:
+}
+
+int main(void)
+{
+    initialize();
+  a6:	0e 94 46 00 	call	0x8c	; 0x8c <initialize>
+            case Bneq :
+				PORTA = Bneq_ctrl;
+				PORTC = SUB;
+				break;
+            case lw :
+				PORTA = lw_ctrl;
+  aa:	15 e1       	ldi	r17, 0x15	; 21
+            case Beq :
+				PORTA = Beq_ctrl;
+				PORTC = SUB;
+				break;
+            case Bneq :
+				PORTA = Bneq_ctrl;
+  ac:	d0 e4       	ldi	r29, 0x40	; 64
+				PORTC = SUB;
+  ae:	27 e0       	ldi	r18, 0x07	; 7
+            case sw :
+				PORTA = sw_ctrl;
+				PORTC = ADD;
+				break;
+            case Beq :
+				PORTA = Beq_ctrl;
+  b0:	c0 e2       	ldi	r28, 0x20	; 32
+            case j :
+				PORTA = j_ctrl;
+				PORTC = ADD;
+				break;
+            case sw :
+				PORTA = sw_ctrl;
+  b2:	b2 e1       	ldi	r27, 0x12	; 18
+            case subi :
+				PORTA = subi_ctrl;
+				PORTC = SUB;
+				break;
+            case j :
+				PORTA = j_ctrl;
+  b4:	a0 e9       	ldi	r26, 0x90	; 144
+            case nor :
+				PORTA = nor_ctrl;
+				PORTC = NOR;
+				break;
+            case subi :
+				PORTA = subi_ctrl;
+  b6:	84 e1       	ldi	r24, 0x14	; 20
+            case srl :
+				PORTA = srl_ctrl;
+				PORTC = SRL;
+				break;
+            case nor :
+				PORTA = nor_ctrl;
+  b8:	9c e0       	ldi	r25, 0x0C	; 12
+				PORTC = NOR;
+  ba:	76 e0       	ldi	r23, 0x06	; 6
+				PORTA = addi_ctrl;
+				PORTC = ADD;
+				break;
+            case srl :
+				PORTA = srl_ctrl;
+				PORTC = SRL;
+  bc:	61 e0       	ldi	r22, 0x01	; 1
+				PORTA = andi_ctrl;
+				PORTC = AND;
+				break;
+            case and :
+				PORTA = and_ctrl;
+				PORTC = AND;
+  be:	45 e0       	ldi	r20, 0x05	; 5
+				PORTA = sub_ctrl;
+				PORTC = SUB;
+				break;
+            case sll :
+				PORTA = sll_ctrl;
+				PORTC = SLL;
+  c0:	54 e0       	ldi	r21, 0x04	; 4
+				PORTA = or_ctrl;
+				PORTC = OR;
+				break;
+            case ori :
+				PORTA = ori_ctrl;
+				PORTC = OR;
+  c2:	32 e0       	ldi	r19, 0x02	; 2
+int main(void)
+{
+    initialize();
+    while (1) 
+    {
+		switch(PINB)
+  c4:	e6 b3       	in	r30, 0x16	; 22
+  c6:	f0 e0       	ldi	r31, 0x00	; 0
+  c8:	e0 31       	cpi	r30, 0x10	; 16
+  ca:	f1 05       	cpc	r31, r1
+  cc:	d8 f7       	brcc	.-10     	; 0xc4 <main+0x1e>
+  ce:	e6 5d       	subi	r30, 0xD6	; 214
+  d0:	ff 4f       	sbci	r31, 0xFF	; 255
+  d2:	0c 94 9b 00 	jmp	0x136	; 0x136 <__tablejump2__>
+		{
+            case or :
+				PORTA = or_ctrl;
+  d6:	9b bb       	out	0x1b, r25	; 27
+				PORTC = OR;
+  d8:	35 bb       	out	0x15, r19	; 21
+				break;
+  da:	f4 cf       	rjmp	.-24     	; 0xc4 <main+0x1e>
+            case ori :
+				PORTA = ori_ctrl;
+  dc:	8b bb       	out	0x1b, r24	; 27
+				PORTC = OR;
+  de:	35 bb       	out	0x15, r19	; 21
+				break;
+  e0:	f1 cf       	rjmp	.-30     	; 0xc4 <main+0x1e>
+            case sub :
+				PORTA = sub_ctrl;
+  e2:	9b bb       	out	0x1b, r25	; 27
+				PORTC = SUB;
+  e4:	25 bb       	out	0x15, r18	; 21
+				break;
+  e6:	ee cf       	rjmp	.-36     	; 0xc4 <main+0x1e>
+            case sll :
+				PORTA = sll_ctrl;
+  e8:	8b bb       	out	0x1b, r24	; 27
+				PORTC = SLL;
+  ea:	55 bb       	out	0x15, r21	; 21
+				break;
+  ec:	eb cf       	rjmp	.-42     	; 0xc4 <main+0x1e>
+            case add :
+				PORTA = add_ctrl;
+  ee:	9b bb       	out	0x1b, r25	; 27
+				PORTC = ADD;
+  f0:	15 ba       	out	0x15, r1	; 21
+				break;
+  f2:	e8 cf       	rjmp	.-48     	; 0xc4 <main+0x1e>
+            case andi :
+				PORTA = andi_ctrl;
+  f4:	8b bb       	out	0x1b, r24	; 27
+				PORTC = AND;
+  f6:	45 bb       	out	0x15, r20	; 21
+				break;
+  f8:	e5 cf       	rjmp	.-54     	; 0xc4 <main+0x1e>
+            case and :
+				PORTA = and_ctrl;
+  fa:	9b bb       	out	0x1b, r25	; 27
+				PORTC = AND;
+  fc:	45 bb       	out	0x15, r20	; 21
+				break;
+  fe:	e2 cf       	rjmp	.-60     	; 0xc4 <main+0x1e>
+            case addi :
+				PORTA = addi_ctrl;
+ 100:	8b bb       	out	0x1b, r24	; 27
+				PORTC = ADD;
+ 102:	15 ba       	out	0x15, r1	; 21
+				break;
+ 104:	df cf       	rjmp	.-66     	; 0xc4 <main+0x1e>
+            case srl :
+				PORTA = srl_ctrl;
+ 106:	8b bb       	out	0x1b, r24	; 27
+				PORTC = SRL;
+ 108:	65 bb       	out	0x15, r22	; 21
+				break;
+ 10a:	dc cf       	rjmp	.-72     	; 0xc4 <main+0x1e>
+            case nor :
+				PORTA = nor_ctrl;
+ 10c:	9b bb       	out	0x1b, r25	; 27
+				PORTC = NOR;
+ 10e:	75 bb       	out	0x15, r23	; 21
+				break;
+ 110:	d9 cf       	rjmp	.-78     	; 0xc4 <main+0x1e>
+            case subi :
+				PORTA = subi_ctrl;
+ 112:	8b bb       	out	0x1b, r24	; 27
+				PORTC = SUB;
+ 114:	25 bb       	out	0x15, r18	; 21
+				break;
+ 116:	d6 cf       	rjmp	.-84     	; 0xc4 <main+0x1e>
+            case j :
+				PORTA = j_ctrl;
+ 118:	ab bb       	out	0x1b, r26	; 27
+				PORTC = ADD;
+ 11a:	15 ba       	out	0x15, r1	; 21
+				break;
+ 11c:	d3 cf       	rjmp	.-90     	; 0xc4 <main+0x1e>
+            case sw :
+				PORTA = sw_ctrl;
+ 11e:	bb bb       	out	0x1b, r27	; 27
+				PORTC = ADD;
+ 120:	15 ba       	out	0x15, r1	; 21
+				break;
+ 122:	d0 cf       	rjmp	.-96     	; 0xc4 <main+0x1e>
+            case Beq :
+				PORTA = Beq_ctrl;
+ 124:	cb bb       	out	0x1b, r28	; 27
+				PORTC = SUB;
+ 126:	25 bb       	out	0x15, r18	; 21
+				break;
+ 128:	cd cf       	rjmp	.-102    	; 0xc4 <main+0x1e>
+            case Bneq :
+				PORTA = Bneq_ctrl;
+ 12a:	db bb       	out	0x1b, r29	; 27
+				PORTC = SUB;
+ 12c:	25 bb       	out	0x15, r18	; 21
+				break;
+ 12e:	ca cf       	rjmp	.-108    	; 0xc4 <main+0x1e>
+            case lw :
+				PORTA = lw_ctrl;
+ 130:	1b bb       	out	0x1b, r17	; 27
+				PORTC = ADD;
+ 132:	15 ba       	out	0x15, r1	; 21
+				break;			
+ 134:	c7 cf       	rjmp	.-114    	; 0xc4 <main+0x1e>
+
+00000136 <__tablejump2__>:
+ 136:	ee 0f       	add	r30, r30
+ 138:	ff 1f       	adc	r31, r31
+ 13a:	05 90       	lpm	r0, Z+
+ 13c:	f4 91       	lpm	r31, Z
+ 13e:	e0 2d       	mov	r30, r0
+ 140:	09 94       	ijmp
+
+00000142 <_exit>:
+ 142:	f8 94       	cli
+
+00000144 <__stop_program>:
+ 144:	ff cf       	rjmp	.-2      	; 0x144 <__stop_program>
