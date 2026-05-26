@@ -4,7 +4,7 @@ Welcome to the **FPA** project directory. This section features advanced hardwar
 
 ## 🛠️ Project Overview
 
-![FPA Diagram](./FPA_Diagram.png)
+![FPA Diagram](./FPA_Diagram.jpeg)
 
 This folder contains scalable architectures developed in Logisim:
 
